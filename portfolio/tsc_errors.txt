@@ -1,0 +1,7 @@
+﻿src/components/Background3D.tsx(3,82): error TS6133: 'MeshWobbleMaterial' is declared but its value is never read.
+src/components/CursorFollower.tsx(5,10): error TS6133: 'mousePos' is declared but its value is never read.
+src/components/CursorFollower.tsx(5,20): error TS6133: 'setMousePos' is declared but its value is never read.
+src/components/ErrorBoundary.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/components/ErrorBoundary.tsx(1,28): error TS1484: 'ErrorInfo' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/components/ErrorBoundary.tsx(1,39): error TS1484: 'ReactNode' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/components/ProjectPreviewModal.tsx(3,13): error TS6133: 'ExternalLink' is declared but its value is never read.
