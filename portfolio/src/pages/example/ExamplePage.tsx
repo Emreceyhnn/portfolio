@@ -115,7 +115,6 @@ export const ExamplePage: React.FC = () => {
         <Background3D />
       </ErrorBoundary>
 
-      {/* Hero Section */}
       <motion.section
         style={{
           height: "100vh",
