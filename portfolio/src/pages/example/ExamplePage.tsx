@@ -218,7 +218,9 @@ export const ExamplePage: React.FC = () => {
               fontSize: "0.9rem",
             }}
           >
-            <Mail size={16} /> emreceyhnn@gmail.com
+            <a href="mailto:emreceyhnn@gmail.com" target="_blank">
+              <Mail size={16} /> emreceyhnn@gmail.com
+            </a>
           </div>
           <div
             style={{
@@ -229,7 +231,9 @@ export const ExamplePage: React.FC = () => {
               fontSize: "0.9rem",
             }}
           >
-            <Github size={16} /> http://github.com/Emreceyhnn
+            <a href="https://github.com/Emreceyhnn" target="_blank">
+              <Github size={16} /> http://github.com/Emreceyhnn
+            </a>
           </div>
           <div
             style={{
@@ -240,7 +244,9 @@ export const ExamplePage: React.FC = () => {
               fontSize: "0.9rem",
             }}
           >
-            <Linkedin size={16} /> https://www.linkedin.com/in/emreceyhn/
+            <a href="https://www.linkedin.com/in/emreceyhn/" target="_blank">
+              <Linkedin size={16} /> https://www.linkedin.com/in/emreceyhn/
+            </a>
           </div>
         </motion.div>
 

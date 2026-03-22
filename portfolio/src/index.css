@@ -1,5 +1,5 @@
 :root {
-  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -30,7 +30,9 @@ body {
   transform: translateY(-8px) scale(1.02);
   background: rgba(255, 255, 255, 0.08) !important;
   border-color: rgba(99, 102, 241, 0.4) !important;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(99, 102, 241, 0.1);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(99, 102, 241, 0.1);
 }
 
 .project-card {
@@ -41,4 +43,9 @@ body {
   body {
     place-items: flex-start;
   }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
