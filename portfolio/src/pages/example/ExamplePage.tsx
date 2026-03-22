@@ -232,7 +232,7 @@ export const ExamplePage: React.FC = () => {
             }}
           >
             <a href="https://github.com/Emreceyhnn" target="_blank">
-              <Github size={16} /> http://github.com/Emreceyhnn
+              <Github size={16} /> github.com/Emreceyhnn
             </a>
           </div>
           <div
@@ -245,7 +245,7 @@ export const ExamplePage: React.FC = () => {
             }}
           >
             <a href="https://www.linkedin.com/in/emreceyhn/" target="_blank">
-              <Linkedin size={16} /> https://www.linkedin.com/in/emreceyhn/
+              <Linkedin size={16} /> linkedin.com/in/emreceyhn/
             </a>
           </div>
         </motion.div>
