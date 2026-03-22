@@ -218,7 +218,7 @@ export const ExamplePage: React.FC = () => {
               fontSize: "0.9rem",
             }}
           >
-            <a href="mailto:emreceyhnn@gmail.com" target="_blank">
+            <a href="mailto:emreceyhnn@gmail.com?subject=Contact%20from%20Portfolio">
               <Mail size={16} /> emreceyhnn@gmail.com
             </a>
           </div>
@@ -231,7 +231,7 @@ export const ExamplePage: React.FC = () => {
               fontSize: "0.9rem",
             }}
           >
-            <a href="https://github.com/Emreceyhnn" target="_blank">
+            <a href="https://github.com/Emreceyhnn" target="_blank" rel="noopener noreferrer">
               <Github size={16} /> github.com/Emreceyhnn
             </a>
           </div>
@@ -244,7 +244,7 @@ export const ExamplePage: React.FC = () => {
               fontSize: "0.9rem",
             }}
           >
-            <a href="https://www.linkedin.com/in/emreceyhn/" target="_blank">
+            <a href="https://www.linkedin.com/in/emreceyhn/" target="_blank" rel="noopener noreferrer">
               <Linkedin size={16} /> linkedin.com/in/emreceyhn/
             </a>
           </div>
@@ -589,6 +589,7 @@ export const ExamplePage: React.FC = () => {
           <a
             href="https://github.com/Emreceyhnn"
             target="_blank"
+            rel="noopener noreferrer"
             style={{ color: "#fff" }}
           >
             <Github />
@@ -596,6 +597,7 @@ export const ExamplePage: React.FC = () => {
           <a
             href="https://www.linkedin.com/in/emreceyhn/"
             target="_blank"
+            rel="noopener noreferrer"
             style={{ color: "#fff" }}
           >
             <Linkedin />
