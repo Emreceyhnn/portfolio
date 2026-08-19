@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import type { ProjectCardProps } from '../lib/type/example'
-import { ExternalLink, Globe, RefreshCw, Maximize2 } from 'lucide-react'
+import { ExternalLink, Globe } from 'lucide-react'
 import { motion } from 'framer-motion'
 
-export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect, onPreview }) => {
-  const [isLoading, setIsLoading] = useState(true)
-
+export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) => {
   return (
     <motion.div 
       initial={{ opacity: 0, scale: 0.98 }}
@@ -68,27 +66,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect, onP
         </div>
 
           <div style={{ display: 'flex', gap: '4px' }}>
-            <button 
-              onClick={() => onPreview(project.id)}
-              style={{ 
-                background: 'transparent', 
-                border: 'none', 
-                color: 'rgba(255,255,255,0.4)', 
-                cursor: 'pointer', 
-                display: 'flex',
-                padding: '4px'
-              }}
-              title="Preview Project"
-            >
-              <Maximize2 size={16} />
-            </button>
-            <button 
+            <button
               onClick={() => onSelect(project.id)}
-              style={{ 
-                background: 'transparent', 
-                border: 'none', 
-                color: 'rgba(255,255,255,0.4)', 
-                cursor: 'pointer', 
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: 'rgba(255,255,255,0.4)',
+                cursor: 'pointer',
                 display: 'flex',
                 padding: '4px'
               }}
@@ -125,41 +109,32 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect, onP
         </div>
       </div>
 
-      {/* Main Iframe View */}
-      <div style={{ flex: 1, position: 'relative', background: '#000' }}>
-        {isLoading && (
-          <div style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: 5,
-            background: '#0a0a0a',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '12px'
-          }}>
-            <RefreshCw className="animate-spin" size={24} color="#6366f1" />
-            <span style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.3)', letterSpacing: '2px', textTransform: 'uppercase' }}>
-              Initializing Preview...
-            </span>
-          </div>
-        )}
-        <iframe 
-          src={project.link}
-          style={{ 
-            width: '100%', 
-            height: '100%', 
-            border: 'none',
-            background: '#fff' 
-          }}
-          onLoad={() => setIsLoading(false)}
-          title={project.title}
-          loading="lazy"
-        />
+      {/* Static Preview (live iframes get blocked by target-site CSP frame-ancestors) */}
+      <div
+        onClick={() => onSelect(project.id)}
+        style={{
+          flex: 1,
+          position: 'relative',
+          cursor: 'pointer',
+          background:
+            'radial-gradient(circle at 30% 20%, rgba(99,102,241,0.25), transparent 60%), linear-gradient(160deg, #14141c 0%, #0a0a0d 100%)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '10px',
+          opacity: 0.5
+        }}>
+          <Globe size={40} color="#818cf8" />
+          <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '2px', textTransform: 'uppercase' }}>
+            Visit Live Site
+          </span>
+        </div>
       </div>
     </motion.div>
   )

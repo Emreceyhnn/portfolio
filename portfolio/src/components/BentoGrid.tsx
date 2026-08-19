@@ -38,7 +38,6 @@ export const ProjectGrid: React.FC<BentoGridProps> = ({ state, actions }) => {
           <ProjectCard
             project={project}
             onSelect={actions.handleProjectClick}
-            onPreview={actions.setPreviewProject}
           />
         </motion.div>
       ))}

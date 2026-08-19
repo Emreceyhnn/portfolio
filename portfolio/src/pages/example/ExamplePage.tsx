@@ -22,7 +22,6 @@ export const ExamplePage: React.FC = () => {
     isLoading: true,
     error: null,
     lastFetched: null,
-    selectedProjectForPreview: null,
   });
 
   // CRITICAL: PageActions (Memoized)
@@ -57,16 +56,6 @@ export const ExamplePage: React.FC = () => {
       [state.projects],
     ),
 
-    setPreviewProject: useCallback(
-      (id: string | null) => {
-        const project = id
-          ? state.projects.find((p) => p.id === id) || null
-          : null;
-        setState((prev) => ({ ...prev, selectedProjectForPreview: project }));
-      },
-      [state.projects],
-    ),
-
     resetState: useCallback(() => {
       setState({
         projects: [],
@@ -77,7 +66,6 @@ export const ExamplePage: React.FC = () => {
         isLoading: true,
         error: null,
         lastFetched: null,
-        selectedProjectForPreview: null,
       });
     }, []),
   };
@@ -144,7 +132,7 @@ export const ExamplePage: React.FC = () => {
             textTransform: "uppercase",
           }}
         >
-          Junior Full-Stack Engineer
+          Full-Stack Engineer
         </motion.div>
 
         <motion.h1
@@ -180,10 +168,11 @@ export const ExamplePage: React.FC = () => {
             lineHeight: 1.8,
           }}
         >
-          I am a Full-Stack Developer driven by curiosity and a strong passion
-          for building scalable solutions from the ground up. Expertise in
-          React, Next.js, and Node.js, with a focus on clean architecture and
-          long-term scalability.
+          Results-driven Full-Stack Engineer with startup production
+          experience shipping highly secure, multi-tenant SaaS architectures
+          end to end. Specialized in Next.js, React 19, TypeScript, and
+          PostgreSQL — focused on measurable outcomes like lower API latency
+          and Lighthouse scores of 90+.
         </motion.p>
 
         <motion.div

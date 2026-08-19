@@ -36,13 +36,11 @@ export interface ExamplePageState {
   isLoading: boolean;
   error: string | null;
   lastFetched: string | null;
-  selectedProjectForPreview: ProjectModel | null;
 }
 
 export interface ExamplePageActions {
   fetchProjects: () => Promise<void>;
   handleProjectClick: (id: string) => void;
-  setPreviewProject: (id: string | null) => void;
   resetState: () => void;
 }
 
@@ -54,5 +52,4 @@ export interface ExamplePageProps {
 export interface ProjectCardProps {
   project: ProjectModel;
   onSelect: (id: string) => void;
-  onPreview: (id: string) => void;
 }
