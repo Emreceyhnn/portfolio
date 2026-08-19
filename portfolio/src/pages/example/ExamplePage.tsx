@@ -8,7 +8,7 @@ import { Background3D } from "../../components/Background3D";
 import { ProjectGrid } from "../../components/BentoGrid";
 import { CursorFollower } from "../../components/CursorFollower";
 import { ErrorBoundary } from "../../components/ErrorBoundary";
-import { Github, Mail, MapPin, Linkedin, ArrowRight } from "lucide-react";
+import { Github, Mail, MapPin, Linkedin, ArrowRight, Download } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 export const ExamplePage: React.FC = () => {
@@ -189,11 +189,48 @@ export const ExamplePage: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          style={{ marginTop: "40px", display: "flex", justifyContent: "center" }}
+        >
+          <a
+            href="/Emre_Ceyhan_Full_Stack_Engineer.pdf"
+            download="Emre_Ceyhan_CV.pdf"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              padding: "16px 32px",
+              background: "#6366f1",
+              color: "#fff",
+              borderRadius: "100px",
+              textDecoration: "none",
+              fontWeight: 600,
+              fontSize: "1.1rem",
+              boxShadow: "0 10px 30px -10px rgba(99, 102, 241, 0.5)",
+              transition: "transform 0.2s ease, box-shadow 0.2s ease",
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.transform = "translateY(-3px)";
+              e.currentTarget.style.boxShadow = "0 20px 40px -10px rgba(99, 102, 241, 0.7)";
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "0 10px 30px -10px rgba(99, 102, 241, 0.5)";
+            }}
+          >
+            <Download size={20} />
+            Download Resume
+          </a>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
           style={{
             display: "flex",
             gap: "32px",
-            marginTop: "40px",
+            marginTop: "24px",
             flexWrap: "wrap",
             justifyContent: "center",
           }}
