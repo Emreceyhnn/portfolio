@@ -8,6 +8,7 @@ import { Background3D } from "../../components/Background3D";
 import { ProjectGrid } from "../../components/BentoGrid";
 import { CursorFollower } from "../../components/CursorFollower";
 import { ErrorBoundary } from "../../components/ErrorBoundary";
+import { ContactForm } from "../../components/ContactForm";
 import { Github, Mail, MapPin, Linkedin, ArrowRight, Download } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
@@ -610,6 +611,49 @@ export const ExamplePage: React.FC = () => {
             </p>
           </div>
         </div>
+      </section>
+
+      {/* Contact Section — FE "Make It Do Something": the one real
+          dynamic feature. See ContactForm.tsx for how it's wired. */}
+      <section
+        style={{
+          maxWidth: "700px",
+          margin: "clamp(64px, 12vw, 140px) auto 0",
+          padding: "0 24px",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "12px",
+            marginBottom: "32px",
+          }}
+        >
+          <h2
+            style={{
+              fontSize: "clamp(2rem, 5vw, 3rem)",
+              margin: 0,
+              fontWeight: 800,
+            }}
+          >
+            Get in Touch
+          </h2>
+          <div
+            style={{ width: "60px", height: "4px", background: "#6366f1" }}
+          />
+          <p
+            style={{
+              color: "rgba(255,255,255,0.5)",
+              fontSize: "1rem",
+              margin: 0,
+            }}
+          >
+            Have a role, a project, or just a question? This form actually
+            sends — it'll land in my inbox, not a void.
+          </p>
+        </div>
+        <ContactForm />
       </section>
 
       {/* Footer */}
