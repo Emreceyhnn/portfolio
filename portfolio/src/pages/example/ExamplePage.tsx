@@ -231,49 +231,67 @@ export const ExamplePage: React.FC = () => {
               gap: "8px",
               color: "rgba(255,255,255,0.4)",
               fontSize: "0.9rem",
+              // Matches the padding on the link rows below so this
+              // non-interactive row lines up with them visually.
+              padding: "8px 4px",
             }}
           >
             <MapPin size={16} /> Bursa, TR (Open to Remote)
           </div>
-          <div
+          {/*
+            Contact links: the <a> itself now owns the flex layout and
+            padding (rather than a wrapping <div>), so the whole row —
+            icon plus label — is one contiguous ~44px-tall tap target
+            instead of just the text's line-height. 44px is the minimum
+            recommended touch target size; a bare 16px icon + 0.9rem text
+            with no padding was well under that on a phone.
+          */}
+          <a
+            href="mailto:emreceyhnn@gmail.com?subject=Contact%20from%20Portfolio"
             style={{
               display: "flex",
               alignItems: "center",
               gap: "8px",
               color: "rgba(255,255,255,0.4)",
               fontSize: "0.9rem",
+              padding: "8px 4px",
+              minHeight: "44px",
             }}
           >
-            <a href="mailto:emreceyhnn@gmail.com?subject=Contact%20from%20Portfolio">
-              <Mail size={16} /> emreceyhnn@gmail.com
-            </a>
-          </div>
-          <div
+            <Mail size={16} /> emreceyhnn@gmail.com
+          </a>
+          <a
+            href="https://github.com/Emreceyhnn"
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               display: "flex",
               alignItems: "center",
               gap: "8px",
               color: "rgba(255,255,255,0.4)",
               fontSize: "0.9rem",
+              padding: "8px 4px",
+              minHeight: "44px",
             }}
           >
-            <a href="https://github.com/Emreceyhnn" target="_blank" rel="noopener noreferrer">
-              <Github size={16} /> github.com/Emreceyhnn
-            </a>
-          </div>
-          <div
+            <Github size={16} /> github.com/Emreceyhnn
+          </a>
+          <a
+            href="https://www.linkedin.com/in/emreceyhn/"
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               display: "flex",
               alignItems: "center",
               gap: "8px",
               color: "rgba(255,255,255,0.4)",
               fontSize: "0.9rem",
+              padding: "8px 4px",
+              minHeight: "44px",
             }}
           >
-            <a href="https://www.linkedin.com/in/emreceyhn/" target="_blank" rel="noopener noreferrer">
-              <Linkedin size={16} /> linkedin.com/in/emreceyhn/
-            </a>
-          </div>
+            <Linkedin size={16} /> linkedin.com/in/emreceyhn/
+          </a>
         </motion.div>
 
         <motion.div
@@ -301,7 +319,7 @@ export const ExamplePage: React.FC = () => {
       <section
         style={{
           maxWidth: "1200px",
-          margin: "140px auto 0",
+          margin: "clamp(64px, 12vw, 140px) auto 0",
           padding: "0 24px",
         }}
       >
@@ -394,7 +412,7 @@ export const ExamplePage: React.FC = () => {
       <section
         style={{
           maxWidth: "1200px",
-          margin: "140px auto 0",
+          margin: "clamp(64px, 12vw, 140px) auto 0",
           padding: "0 24px",
         }}
       >
@@ -461,7 +479,7 @@ export const ExamplePage: React.FC = () => {
         transition={{ duration: 1 }}
         style={{
           maxWidth: "1400px",
-          margin: "140px auto 0",
+          margin: "clamp(64px, 12vw, 140px) auto 0",
           padding: "0 24px",
           display: "flex",
           flexDirection: "column",
@@ -508,7 +526,7 @@ export const ExamplePage: React.FC = () => {
       <section
         style={{
           maxWidth: "1200px",
-          margin: "140px auto 140px",
+          margin: "clamp(64px, 12vw, 140px) auto clamp(64px, 12vw, 140px)",
           padding: "0 24px",
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
@@ -612,11 +630,25 @@ export const ExamplePage: React.FC = () => {
             marginBottom: "24px",
           }}
         >
+          {/*
+            Bare icon-only links: padding turns each into a ~44px tap
+            target (the icon itself is 24px by default), matching the
+            minimum recommended touch target size instead of relying on
+            just the icon's own bounding box.
+          */}
           <a
             href="https://github.com/Emreceyhnn"
             target="_blank"
             rel="noopener noreferrer"
-            style={{ color: "#fff" }}
+            style={{
+              color: "#fff",
+              display: "inline-flex",
+              padding: "10px",
+              minWidth: "44px",
+              minHeight: "44px",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
           >
             <Github />
           </a>
@@ -624,7 +656,15 @@ export const ExamplePage: React.FC = () => {
             href="https://www.linkedin.com/in/emreceyhn/"
             target="_blank"
             rel="noopener noreferrer"
-            style={{ color: "#fff" }}
+            style={{
+              color: "#fff",
+              display: "inline-flex",
+              padding: "10px",
+              minWidth: "44px",
+              minHeight: "44px",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
           >
             <Linkedin />
           </a>

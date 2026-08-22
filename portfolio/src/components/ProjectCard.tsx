@@ -13,7 +13,12 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
         width: '100%',
         height: '100%',
         aspectRatio: '16 / 10',
-        minHeight: '400px',
+        // Fixed 400px min-height made every card ~400px+ tall even on a
+        // narrow phone, where 6 stacked cards alone added ~2400px of
+        // scroll. clamp() keeps desktop unchanged (still bottoms out at
+        // 400px) while letting mobile cards shrink toward the aspect
+        // ratio's natural height instead of being forced past it.
+        minHeight: 'clamp(220px, 62vw, 400px)',
         background: '#1a1a1a',
         borderRadius: '24px',
         border: '1px solid rgba(255, 255, 255, 0.08)',
