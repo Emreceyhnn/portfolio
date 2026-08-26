@@ -31,8 +31,8 @@ export const ProjectGrid: React.FC<BentoGridProps> = ({ state, actions }) => {
           key={project.id}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.1, duration: 0.8 }}
-          viewport={{ once: true }}
+          transition={{ delay: Math.min(index, 3) * 0.06, duration: 0.4 }}
+          viewport={{ once: true, amount: 0.1 }}
           style={{ width: "100%" }}
         >
           <ProjectCard

@@ -76,9 +76,21 @@ export const ExamplePage: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [actions.fetchProjects]);
 
-  const { scrollYProgress } = useScroll();
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
-  const heroScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.9]);
+  const { scrollY } = useScroll();
+  // Fade/scale the hero out over a short, fixed scroll distance (the first
+  // ~400px) instead of a fraction of total page scroll. Using total-page
+  // scrollYProgress meant the fade window shrank as content was added below,
+  // so on a long page the hero was still fully opaque well past the point
+  // where the next section heading had scrolled into view -- the two
+  // pieces of text sat on screen at the same time and visually collided.
+  const heroFadeEnd = 400;
+  const heroOpacity = useTransform(scrollY, [0, heroFadeEnd], [1, 0]);
+  const heroScale = useTransform(scrollY, [0, heroFadeEnd], [1, 0.9]);
+  // Once the hero has fully faded, stop it from intercepting clicks/scroll
+  // and from being reachable by keyboard/screen-reader focus or find-in-page.
+  const heroPointerEvents = useTransform(scrollY, (v) =>
+    v > heroFadeEnd ? "none" : "auto",
+  );
 
   return (
     <main
@@ -115,6 +127,7 @@ export const ExamplePage: React.FC = () => {
           textAlign: "center",
           opacity: heroOpacity,
           scale: heroScale,
+          pointerEvents: heroPointerEvents,
         }}
       >
         <motion.div
@@ -302,6 +315,13 @@ export const ExamplePage: React.FC = () => {
             position: "absolute",
             bottom: "40px",
             color: "rgba(255,255,255,0.2)",
+            // This element sets its own animate (the bobbing y-loop), which
+            // otherwise overrides the opacity it would have inherited from
+            // the parent hero section fade-out. Without this, "Scroll to
+            // explore" stayed fully visible while the rest of the hero had
+            // already faded, ending up floating alone right above the next
+            // section heading -- read as broken spacing, not a scroll cue.
+            opacity: heroOpacity,
           }}
         >
           Scroll to explore{" "}
@@ -335,7 +355,8 @@ export const ExamplePage: React.FC = () => {
               key={exp.id}
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.4 }}
               style={{
                 background: "rgba(255,255,255,0.03)",
                 border: "1px solid rgba(255,255,255,0.1)",
@@ -434,8 +455,8 @@ export const ExamplePage: React.FC = () => {
               key={skill.category}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1 }}
-              viewport={{ once: true }}
+              transition={{ delay: Math.min(idx, 3) * 0.06, duration: 0.4 }}
+              viewport={{ once: true, amount: 0.1 }}
               style={{
                 padding: "32px",
                 background: "rgba(255,255,255,0.02)",
@@ -477,7 +498,13 @@ export const ExamplePage: React.FC = () => {
       <motion.section
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        transition={{ duration: 1 }}
+        // amount: 0.1 fires as soon as 10% of the section is on screen (the
+        // default "some" threshold sits higher), and the shorter duration
+        // means a normal scroll speed does not outrun the fade -- without
+        // these the "Selected Works" heading and grid below it could read
+        // as mostly-transparent for a beat after scrolling into view.
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.4 }}
         style={{
           maxWidth: "1400px",
           margin: "clamp(64px, 12vw, 140px) auto 0",
