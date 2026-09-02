@@ -2,6 +2,43 @@
 
 React + TypeScript + Vite portfolio site, deployed on Vercel.
 
+## FE-AA2 — Your First 3D Experience on the Web (2026-09-02)
+
+The site's hero background (`src/components/Background3D.tsx`) is the
+deliverable for this assignment: a full-viewport React Three Fiber scene
+(distorted sphere, floating wireframe icosahedrons, an 8,000-point star
+field) that sits behind the whole page.
+
+**What it does beyond orbiting.** The central sphere is cursor-reactive —
+its position lerps toward `mouse.x`/`mouse.y` every frame (see `Scene()`),
+so it visibly follows the pointer instead of just idly rotating.
+
+**Loading responsibly.**
+- Code-split with `React.lazy` + `Suspense`: the Three.js/drei/
+  postprocessing dependency chain (~1.04 MB, 319 KB gzipped) never touches
+  the main bundle. The main app chunk is 351 KB (112 KB gzipped) and can
+  parse/execute independently of the 3D scene, which streams in afterward.
+- `prefers-reduced-motion: reduce` gets a plain static gradient `<div>` —
+  no WebGL canvas is created at all for users who asked their OS for less
+  motion.
+- A `use3DQuality()` hook checks `(pointer: coarse)` and
+  `(max-width: 768px)` and drops to a cheaper tier on phones/tablets:
+  1,500 points instead of 8,000, 32×32 sphere segments instead of 128×128,
+  no floating icosahedrons, no post-processing (Bloom/Noise/Vignette), and
+  `dpr` capped to 1 instead of `[1, 2]`.
+
+**Impact on load and frame rate (measured via the FE-10 audit, see
+`AUDIT.md`).** Before code-splitting and the mobile quality tier, this
+scene alone drove Total Blocking Time to ~38 seconds on Lighthouse's
+throttled mobile emulation — the site's Performance score was 50. After:
+see `AUDIT.md` for the re-measured score once the fix is live.
+
+**What I'd add with more time:** an actual FPS counter surfaced in a dev
+overlay (currently frame rate is only inferred from Lighthouse's TBT, not
+measured directly at runtime), and a fourth quality tier keyed off
+`navigator.deviceMemory`/`hardwareConcurrency` for genuinely low-end
+Android devices rather than just screen width/pointer type as a proxy.
+
 ## Break Your Own Site — fixes (2026-09-02)
 
 Two real production issues found and fixed:
