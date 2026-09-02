@@ -50,15 +50,16 @@
     <!-- Theme Color for mobile -->
     <meta name="theme-color" content="#020202" />
 
-    <!-- Cookieless analytics (Plausible) — no cookies, no personal data,
-         no consent banner required under GDPR. Only loads once
-         emreceyhan.xyz is added as a site at plausible.io; until then
-         this script 404s harmlessly and the page is unaffected. -->
-    <script
-      defer
-      data-domain="emreceyhan.xyz"
-      src="https://plausible.io/js/script.js"
-    ></script>
+    <!-- Privacy-friendly analytics by Plausible — cookieless, no
+         personal data, no consent banner required under GDPR. This is
+         the site-specific snippet Plausible issues once emreceyhan.xyz
+         is registered as a site in the account (replaces the earlier
+         generic data-domain script, which 503'd until registration). -->
+    <script async src="https://plausible.io/js/pa-O1t6uIcCGyu2INizgrGDY.js"></script>
+    <script>
+      window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+      plausible.init()
+    </script>
   </head>
   <body>
     <div id="root"></div>
