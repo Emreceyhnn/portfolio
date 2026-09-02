@@ -254,6 +254,9 @@ export const ContactForm: React.FC = () => {
           <button
             type="submit"
             disabled={!canSubmit}
+            aria-describedby={
+              !canSubmit && !isSubmitting ? "contact-submit-hint" : undefined
+            }
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -285,6 +288,24 @@ export const ContactForm: React.FC = () => {
               </>
             )}
           </button>
+
+          {/* FE "Break Your Own Site" fix: clicking a disabled submit
+              button previously gave zero feedback — no request, no error
+              text, nothing a user or screen reader could act on. This
+              hint makes the disabled reason discoverable instead of
+              silent, without changing the underlying validation. */}
+          {!canSubmit && !isSubmitting && (
+            <p
+              id="contact-submit-hint"
+              style={{
+                margin: "10px 0 0",
+                color: "rgba(255,255,255,0.4)",
+                fontSize: "0.8rem",
+              }}
+            >
+              Fill in your name, a valid email, and a message to send.
+            </p>
+          )}
         </form>
       )}
     </motion.div>
