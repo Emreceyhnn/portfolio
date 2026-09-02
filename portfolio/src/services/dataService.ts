@@ -14,9 +14,13 @@ export interface PortfolioData {
 }
 
 export const fetchPortfolioData = async (): Promise<PortfolioData> => {
-  // Simulate API delay
-  await new Promise((resolve) => setTimeout(resolve, 800));
-
+  // FE-10 perf fix: this used to `await` an artificial 800ms delay to
+  // "simulate an API call" -- but the data below is fully static/local,
+  // not a real network request, so the delay bought nothing except a
+  // guaranteed 800ms added straight onto the page's LCP (the hero
+  // paragraph doesn't render until this promise resolves). Kept as an
+  // async function so the call site's loading/error states are exercised
+  // unchanged; just no longer paying for a fake wait.
   const mockProjects: ProjectModel[] = [
     {
       id: "1",
