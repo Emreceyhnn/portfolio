@@ -393,7 +393,7 @@ export const ExamplePage: React.FC = () => {
                   </h3>
                   <p
                     style={{
-                      color: "#6366f1",
+                      color: "#818cf8",
                       fontSize: "1.1rem",
                       margin: "4px 0 0",
                     }}
@@ -588,7 +588,7 @@ export const ExamplePage: React.FC = () => {
                 <h3 style={{ fontSize: "1.2rem", margin: 0, color: "#fff" }}>
                   {edu.degree}
                 </h3>
-                <p style={{ color: "#6366f1", margin: "4px 0 0" }}>
+                <p style={{ color: "#818cf8", margin: "4px 0 0" }}>
                   {edu.institution}
                 </p>
                 <p
