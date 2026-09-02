@@ -224,6 +224,7 @@ export const ContactForm: React.FC = () => {
             name="botcheck"
             tabIndex={-1}
             autoComplete="off"
+            aria-hidden="true"
             style={{
               position: "absolute",
               width: "1px",

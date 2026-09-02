@@ -1,16 +1,27 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, Suspense, lazy } from "react";
 import type {
   ExamplePageState,
   ExamplePageActions,
 } from "../../lib/type/example";
 import { fetchPortfolioData } from "../../services/dataService";
-import { Background3D } from "../../components/Background3D";
 import { ProjectGrid } from "../../components/BentoGrid";
 import { CursorFollower } from "../../components/CursorFollower";
 import { ErrorBoundary } from "../../components/ErrorBoundary";
 import { ContactForm } from "../../components/ContactForm";
 import { Github, Mail, MapPin, Linkedin, ArrowRight, Download } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
+
+// FE-10 perf fix: the 3D background (react-three-fiber + drei +
+// postprocessing) is one of the heaviest dependency chains in this app.
+// Code-splitting it with React.lazy keeps it out of the main bundle that
+// has to parse and execute before the page becomes interactive -- it
+// loads in parallel and mounts once ready, instead of blocking FCP/TBT
+// for a purely decorative background.
+const Background3D = lazy(() =>
+  import("../../components/Background3D").then((mod) => ({
+    default: mod.Background3D,
+  })),
+);
 
 export const ExamplePage: React.FC = () => {
   // CRITICAL: Single Root State (PageState)
@@ -113,7 +124,9 @@ export const ExamplePage: React.FC = () => {
           />
         }
       >
-        <Background3D />
+        <Suspense fallback={null}>
+          <Background3D />
+        </Suspense>
       </ErrorBoundary>
 
       <motion.section
@@ -203,7 +216,7 @@ export const ExamplePage: React.FC = () => {
               alignItems: "center",
               gap: "12px",
               padding: "16px 32px",
-              background: "#6366f1",
+              background: "#4f46e5",
               color: "#fff",
               borderRadius: "100px",
               textDecoration: "none",
@@ -243,7 +256,7 @@ export const ExamplePage: React.FC = () => {
               display: "flex",
               alignItems: "center",
               gap: "8px",
-              color: "rgba(255,255,255,0.4)",
+              color: "rgba(255,255,255,0.6)",
               fontSize: "0.9rem",
               // Matches the padding on the link rows below so this
               // non-interactive row lines up with them visually.
@@ -266,7 +279,7 @@ export const ExamplePage: React.FC = () => {
               display: "flex",
               alignItems: "center",
               gap: "8px",
-              color: "rgba(255,255,255,0.4)",
+              color: "rgba(255,255,255,0.6)",
               fontSize: "0.9rem",
               padding: "8px 4px",
               minHeight: "44px",
@@ -282,7 +295,7 @@ export const ExamplePage: React.FC = () => {
               display: "flex",
               alignItems: "center",
               gap: "8px",
-              color: "rgba(255,255,255,0.4)",
+              color: "rgba(255,255,255,0.6)",
               fontSize: "0.9rem",
               padding: "8px 4px",
               minHeight: "44px",
@@ -298,7 +311,7 @@ export const ExamplePage: React.FC = () => {
               display: "flex",
               alignItems: "center",
               gap: "8px",
-              color: "rgba(255,255,255,0.4)",
+              color: "rgba(255,255,255,0.6)",
               fontSize: "0.9rem",
               padding: "8px 4px",
               minHeight: "44px",
@@ -314,7 +327,7 @@ export const ExamplePage: React.FC = () => {
           style={{
             position: "absolute",
             bottom: "40px",
-            color: "rgba(255,255,255,0.2)",
+            color: "rgba(255,255,255,0.6)",
             // This element sets its own animate (the bobbing y-loop), which
             // otherwise overrides the opacity it would have inherited from
             // the parent hero section fade-out. Without this, "Scroll to
@@ -389,7 +402,7 @@ export const ExamplePage: React.FC = () => {
                   </p>
                 </div>
                 <span
-                  style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.9rem" }}
+                  style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.9rem" }}
                 >
                   {exp.period}
                 </span>
@@ -464,9 +477,9 @@ export const ExamplePage: React.FC = () => {
                 border: "1px solid rgba(255,255,255,0.05)",
               }}
             >
-              <h4
+              <h3
                 style={{
-                  color: "rgba(255,255,255,0.4)",
+                  color: "rgba(255,255,255,0.6)",
                   fontSize: "0.75rem",
                   textTransform: "uppercase",
                   letterSpacing: "2px",
@@ -474,7 +487,7 @@ export const ExamplePage: React.FC = () => {
                 }}
               >
                 {skill.category}
-              </h4>
+              </h3>
               <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
                 {skill.items.map((item) => (
                   <span
@@ -534,7 +547,7 @@ export const ExamplePage: React.FC = () => {
             style={{
               textAlign: "center",
               padding: "100px",
-              color: "rgba(255,255,255,0.2)",
+              color: "rgba(255,255,255,0.6)",
             }}
           >
             Initializing systems...
@@ -572,15 +585,15 @@ export const ExamplePage: React.FC = () => {
           >
             {state.education.map((edu) => (
               <div key={edu.id}>
-                <h4 style={{ fontSize: "1.2rem", margin: 0, color: "#fff" }}>
+                <h3 style={{ fontSize: "1.2rem", margin: 0, color: "#fff" }}>
                   {edu.degree}
-                </h4>
+                </h3>
                 <p style={{ color: "#6366f1", margin: "4px 0 0" }}>
                   {edu.institution}
                 </p>
                 <p
                   style={{
-                    color: "rgba(255,255,255,0.3)",
+                    color: "rgba(255,255,255,0.6)",
                     fontSize: "0.8rem",
                     marginTop: "4px",
                   }}
@@ -603,7 +616,7 @@ export const ExamplePage: React.FC = () => {
                 <p
                   style={{
                     margin: 0,
-                    color: "rgba(255,255,255,0.4)",
+                    color: "rgba(255,255,255,0.6)",
                     fontSize: "0.75rem",
                     textTransform: "uppercase",
                     letterSpacing: "1px",
@@ -711,6 +724,7 @@ export const ExamplePage: React.FC = () => {
             href="https://github.com/Emreceyhnn"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Emre Ceyhan on GitHub"
             style={{
               color: "#fff",
               display: "inline-flex",
@@ -727,6 +741,7 @@ export const ExamplePage: React.FC = () => {
             href="https://www.linkedin.com/in/emreceyhn/"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Emre Ceyhan on LinkedIn"
             style={{
               color: "#fff",
               display: "inline-flex",
@@ -740,7 +755,7 @@ export const ExamplePage: React.FC = () => {
             <Linkedin />
           </a>
         </div>
-        <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.8rem" }}>
+        <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.8rem" }}>
           © 2026 Emre Ceyhan. Built with professional Three.js and Senior
           Architect patterns.
         </p>
