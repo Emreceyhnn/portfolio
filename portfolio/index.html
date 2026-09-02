@@ -48,6 +48,16 @@
 
     <!-- Theme Color for mobile -->
     <meta name="theme-color" content="#020202" />
+
+    <!-- Cookieless analytics (Plausible) — no cookies, no personal data,
+         no consent banner required under GDPR. Only loads once
+         emreceyhan.xyz is added as a site at plausible.io; until then
+         this script 404s harmlessly and the page is unaffected. -->
+    <script
+      defer
+      data-domain="emreceyhan.xyz"
+      src="https://plausible.io/js/script.js"
+    ></script>
   </head>
   <body>
     <div id="root"></div>

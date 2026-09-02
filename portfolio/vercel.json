@@ -1,7 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/((?!favicon.svg|icons.svg|og-image.png|Emre_Ceyhan_Full_Stack_Engineer.pdf).*)",
       "destination": "/index.html"
     }
   ]
