@@ -16,7 +16,7 @@ export interface ExperienceModel {
 }
 
 export interface SkillModel {
-  category: 'Frontend' | 'Backend' | 'Databases' | 'APIs & Real-time' | 'DevOps & Tools' | 'Soft Skills';
+  category: 'Frontend' | 'Backend & APIs' | 'Databases' | 'DevOps & Infrastructure' | 'Monitoring' | 'Testing' | 'Soft Skills';
   items: string[];
 }
 
