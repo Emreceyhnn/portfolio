@@ -2,6 +2,55 @@
 
 React + TypeScript + Vite portfolio site, deployed on Vercel.
 
+## FE-AA3 — Signature Hero: a fragment shader (2026-09-11)
+
+The site's hero background is now a hand-written GLSL fragment shader
+(`src/components/ShaderHero.tsx`), rendered fullscreen via raw WebGL --
+deliberately *not* three.js/react-three-fiber, so the actual shader math
+is visible with nothing in between. It replaces `Background3D.tsx` (kept
+in the repo/history as the FE-AA2 deliverable) as what actually renders
+behind the page.
+
+**What it draws.** A slow-drifting aurora-style flow field: three octaves
+of value noise (`hash` -> `noise` -> `fbm`), domain-warped by a second,
+offset `fbm` sample -- that warp step is what turns flat noise into
+something that reads as *flowing* rather than static clouds -- colored
+along a custom indigo/violet ramp (`#020202` -> `#4338ca` -> `#818cf8`)
+that matches the rest of the site's palette, with a vignette to keep
+attention centered and a film-grain dither pass to kill banding on the
+dark gradient.
+
+**Uniforms.** `u_time` drives the noise's drift axis, `u_resolution`
+corrects the aspect ratio and lets frequency scale independent of window
+size, and `u_mouse` gently leans the flow field's warp offset toward the
+cursor -- a visible lean, not a snap-to-cursor blob.
+
+**Shipping responsibly.**
+- `prefers-reduced-motion: reduce` never creates a WebGL context at all --
+  same static radial-gradient fallback `Background3D.tsx` already used,
+  reused here so both hero treatments degrade identically.
+- `devicePixelRatio` capped at 1.5 (shading every physical pixel of a
+  3x-DPR phone screen for a decorative background is wasted GPU work,
+  visually indistinguishable at this blur level).
+- The render loop is driven by `requestAnimationFrame` and explicitly
+  stopped on `visibilitychange` -- a backgrounded tab does zero GPU work,
+  and resuming picks the elapsed-time uniform back up instead of jumping.
+- A failed shader compile/link falls back to the same static gradient
+  rather than a blank screen or a thrown error (see `compileShader`'s
+  `console.error` + early return, and the `unsupported` status branch).
+
+**How AI built this.** The noise/fbm/domain-warp shader math (`hash`,
+`noise`, `fbm`, `warp` in `ShaderHero.tsx`) is a personalized remix of a
+common flow-field technique -- Inigo Quilez's `fbm`/domain-warp pattern is
+the standard reference for this -- written with an AI coding assistant,
+then walked through line-by-line by hand: every function above has a
+comment in the author's own words explaining what it does and why it's
+there (the smoothstep in `noise()` for zero-slope cell edges, the doubling
+frequency/halving amplitude in `fbm()`, the mouse-lean magnitude in
+`warp()`'s call site), not left as unexplained boilerplate. The color
+ramp, vignette strength, grain amount, and the mouse-lean magnitude were
+hand-tuned against the live page, not accepted from a first draft.
+
 ## FE-AA2 — Your First 3D Experience on the Web (2026-09-02)
 
 The site's hero background (`src/components/Background3D.tsx`) is the

@@ -11,15 +11,14 @@ import { ContactForm } from "../../components/ContactForm";
 import { Github, Mail, MapPin, Linkedin, ArrowRight, Download } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-// FE-10 perf fix: the 3D background (react-three-fiber + drei +
-// postprocessing) is one of the heaviest dependency chains in this app.
-// Code-splitting it with React.lazy keeps it out of the main bundle that
-// has to parse and execute before the page becomes interactive -- it
-// loads in parallel and mounts once ready, instead of blocking FCP/TBT
-// for a purely decorative background.
-const Background3D = lazy(() =>
-  import("../../components/Background3D").then((mod) => ({
-    default: mod.Background3D,
+// FE-AA3 -- Signature Hero: a hand-written GLSL fragment shader (raw
+// WebGL, no three.js) replaces the react-three-fiber scene above as the
+// site's actual hero background. Same lazy-loading rationale as
+// Background3D -- see src/components/ShaderHero.tsx for the shader
+// source and full uniform/behavior writeup.
+const ShaderHero = lazy(() =>
+  import("../../components/ShaderHero").then((mod) => ({
+    default: mod.ShaderHero,
   })),
 );
 
@@ -125,7 +124,7 @@ export const ExamplePage: React.FC = () => {
         }
       >
         <Suspense fallback={null}>
-          <Background3D />
+          <ShaderHero />
         </Suspense>
       </ErrorBoundary>
 
