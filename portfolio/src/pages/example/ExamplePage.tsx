@@ -755,8 +755,7 @@ export const ExamplePage: React.FC = () => {
           </a>
         </div>
         <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.8rem" }}>
-          © 2026 Emre Ceyhan. Built with professional Three.js and Senior
-          Architect patterns.
+          © 2026 Emre Ceyhan. Built with Next.js, TypeScript & Three.js.
         </p>
       </footer>
     </main>
