@@ -42,8 +42,8 @@ const offers: Offer[] = [
       "Firewall + fail2ban hardening, uptime checks",
       "Optional monthly care plan: patching, monitoring, restore drills",
     ],
-    price: "from ₺10.000",
-    priceNote: "≈ $200 · + ₺2.500/mo care plan",
+    price: "from $125",
+    priceNote: "≈ ₺6.300 · first month of care included, then $45/mo",
     timeline: "2–3 days",
     proofLabel: "See DeployBox",
     proofUrl: "https://deploybox.emreceyhan.xyz",
@@ -61,8 +61,8 @@ const offers: Offer[] = [
       "EN/TR i18n, CI/CD and a production deploy included",
       "Weekly demo, fixed scope, fixed price",
     ],
-    price: "from ₺75.000",
-    priceNote: "≈ $1,490 · 50% upfront",
+    price: "from $1,500",
+    priceNote: "≈ ₺75.400 · 50% upfront",
     timeline: "3–4 weeks",
     proofLabel: "See LogiTrack",
     proofUrl: "https://logitrackenterprise.emreceyhan.xyz/en",
@@ -80,8 +80,8 @@ const offers: Offer[] = [
       "Real-time alerting over SSE, no polling",
       "Incident triage workflow with full history",
     ],
-    price: "from ₺40.000",
-    priceNote: "≈ $795 · includes deploy + docs",
+    price: "from $800",
+    priceNote: "≈ ₺40.200 · includes deploy + docs",
     timeline: "1–2 weeks",
     proofLabel: "See Watchlight",
     proofUrl: "https://watchlight.emreceyhan.xyz",
@@ -175,9 +175,9 @@ export const Services: React.FC = () => {
             lineHeight: 1.6,
           }}
         >
-          Prices are in Turkish lira and exclude VAT. USD/EUR invoicing
-          available for international clients — the dollar figures use today's
-          rate (₺50.28), so the lira price is the one that holds.
+          Prices are in USD and exclude VAT. Turkish clients are quoted in
+          lira at today's rate (1$ = ₺50.28) and that lira figure holds for 30
+          days — so a client in Türkiye sees roughly ₺6.300 / ₺75.400 / ₺40.200.
         </p>
       </div>
 
