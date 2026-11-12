@@ -42,8 +42,8 @@ const offers: Offer[] = [
       "Firewall + fail2ban hardening, uptime checks",
       "Optional monthly care plan: patching, monitoring, restore drills",
     ],
-    price: "from $400",
-    priceNote: "+ $120/mo care plan (optional)",
+    price: "from $300",
+    priceNote: "+ $80/mo care plan (optional)",
     timeline: "2–3 days",
     proofLabel: "See DeployBox",
     proofUrl: "https://deploybox.emreceyhan.xyz",
@@ -61,7 +61,7 @@ const offers: Offer[] = [
       "EN/TR i18n, CI/CD and a production deploy included",
       "Weekly demo, fixed scope, fixed price",
     ],
-    price: "from $4,000",
+    price: "from $2,900",
     priceNote: "50% upfront · fixed scope",
     timeline: "3–4 weeks",
     proofLabel: "See LogiTrack",
@@ -80,7 +80,7 @@ const offers: Offer[] = [
       "Real-time alerting over SSE, no polling",
       "Incident triage workflow with full history",
     ],
-    price: "from $1,800",
+    price: "from $1,300",
     priceNote: "includes deploy + docs",
     timeline: "1–2 weeks",
     proofLabel: "See Watchlight",
@@ -156,6 +156,16 @@ export const Services: React.FC = () => {
           backed by a live system you can click through below — the demos are
           the portfolio, the packages are how you get the same thing built for
           you.
+        </p>
+        <p
+          style={{
+            margin: 0,
+            color: "#34d399",
+            fontSize: "0.85rem",
+            fontWeight: 600,
+          }}
+        >
+          Launch pricing for the first three clients — it goes up after that.
         </p>
       </div>
 
