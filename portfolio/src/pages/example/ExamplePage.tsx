@@ -8,6 +8,7 @@ import { ProjectGrid } from "../../components/BentoGrid";
 import { CursorFollower } from "../../components/CursorFollower";
 import { ErrorBoundary } from "../../components/ErrorBoundary";
 import { ContactForm } from "../../components/ContactForm";
+import { Services } from "../../components/Services";
 import { Github, Mail, MapPin, Linkedin, ArrowRight, Download } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
@@ -347,6 +348,11 @@ export const ExamplePage: React.FC = () => {
           />
         </motion.div>
       </motion.section>
+
+      {/* Work With Me — the commercial section. Sits directly under the
+          hero: a visitor who came to hire him should see the offer, the
+          price and the CTA before the case studies. */}
+      <Services />
 
       {/* Experience Section */}
       <section
