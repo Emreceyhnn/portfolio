@@ -42,8 +42,8 @@ const offers: Offer[] = [
       "Firewall + fail2ban hardening, uptime checks",
       "Optional monthly care plan: patching, monitoring, restore drills",
     ],
-    price: "from $300",
-    priceNote: "+ $80/mo care plan (optional)",
+    price: "from ₺10.000",
+    priceNote: "≈ $200 · + ₺2.500/mo care plan",
     timeline: "2–3 days",
     proofLabel: "See DeployBox",
     proofUrl: "https://deploybox.emreceyhan.xyz",
@@ -61,8 +61,8 @@ const offers: Offer[] = [
       "EN/TR i18n, CI/CD and a production deploy included",
       "Weekly demo, fixed scope, fixed price",
     ],
-    price: "from $2,900",
-    priceNote: "50% upfront · fixed scope",
+    price: "from ₺75.000",
+    priceNote: "≈ $1,490 · 50% upfront",
     timeline: "3–4 weeks",
     proofLabel: "See LogiTrack",
     proofUrl: "https://logitrackenterprise.emreceyhan.xyz/en",
@@ -80,8 +80,8 @@ const offers: Offer[] = [
       "Real-time alerting over SSE, no polling",
       "Incident triage workflow with full history",
     ],
-    price: "from $1,300",
-    priceNote: "includes deploy + docs",
+    price: "from ₺40.000",
+    priceNote: "≈ $795 · includes deploy + docs",
     timeline: "1–2 weeks",
     proofLabel: "See Watchlight",
     proofUrl: "https://watchlight.emreceyhan.xyz",
@@ -166,6 +166,18 @@ export const Services: React.FC = () => {
           }}
         >
           Launch pricing for the first three clients — it goes up after that.
+        </p>
+        <p
+          style={{
+            margin: 0,
+            color: "rgba(255,255,255,0.4)",
+            fontSize: "0.8rem",
+            lineHeight: 1.6,
+          }}
+        >
+          Prices are in Turkish lira and exclude VAT. USD/EUR invoicing
+          available for international clients — the dollar figures use today's
+          rate (₺50.28), so the lira price is the one that holds.
         </p>
       </div>
 
@@ -398,7 +410,7 @@ export const Services: React.FC = () => {
           fontSize: "0.85rem",
         }}
       >
-        Türkiye'deki müşterilerime TL üzerinden fiyat veriyorum —{" "}
+        Fiyatlar KDV hariçtir. Ödeme yarısı peşin, yarısı teslimde —{" "}
         <a
           href="mailto:emreceyhnn@gmail.com"
           style={{ color: "#818cf8", textDecoration: "underline", textUnderlineOffset: "3px" }}
