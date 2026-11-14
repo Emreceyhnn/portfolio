@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Watchlight — Real-Time Mini-SIEM · Emre Ceyhan</title>
+  <meta name="description" content="A TypeScript monorepo SIEM/SOC dashboard with MITRE ATT&CK mapping, Redis sliding-window detection, and live SSE alert streaming." />
+  <link rel="canonical" href="https://emreceyhan.xyz/work/watchlight" />
+  <meta property="og:title" content="Watchlight — Real-Time Mini-SIEM with MITRE Mapping" />
+  <meta property="og:description" content="Detection rules mapped to ATT&CK technique IDs, Redis sliding-window engine, SSE-powered live dashboard. Built by Emre Ceyhan." />
+  <meta property="og:url" content="https://emreceyhan.xyz/work/watchlight" />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="/_static.css" />
+</head>
+<body>
+  <div class="page">
+    <nav class="nav">
+      <a href="/#work">← Back to all work</a>
+    </nav>
+
+    <h1>Watchlight — real-time mini-SIEM with MITRE mapping</h1>
+
+    <h2>Problem</h2>
+    <p>Security dashboards are either enterprise monsters (Splunk, QRadar) or useless log viewers. For a small team, the question isn't "store every event forever" — it's "which of these events look like an attack, right now, and what do I do about it?"</p>
+
+    <h2>What I built</h2>
+    <p>A TypeScript monorepo SIEM/SOC dashboard:</p>
+    <ul>
+      <li><strong>Ingest</strong> — <code>POST /api/ingest</code> accepts structured JSON or raw nginx access logs</li>
+      <li><strong>Detection</strong> — a sliding-window rule engine (brute force, port scan, impossible travel) where every rule maps to a <strong>MITRE ATT&amp;CK</strong> technique ID</li>
+      <li><strong>Streaming</strong> — alerts pushed to the browser over SSE; the dashboard updates without reload</li>
+      <li><strong>Triage</strong> — one-click alert → incident, with severity matrix and a geolocation threat radar</li>
+    </ul>
+
+    <h2>The decisions that mattered</h2>
+
+    <h3>Rules in code, mapped to ATT&amp;CK</h3>
+    <p>Every detection carries a technique ID, so an analyst sees not just "brute force" but "T1110 — Brute Force" and what it implies. That's the difference between an alert and an explanation.</p>
+
+    <h3>Sliding window in Redis</h3>
+    <p>Counting events per IP over a time window is a sorted-set operation, not a table scan. Detection stays fast as ingest volume grows.</p>
+
+    <h3>SSE over polling</h3>
+    <p>Analysts watch a live board. Polling every 5 seconds means stale numbers and wasted queries; SSE means the screen moves when the attack happens.</p>
+
+    <h2>Result</h2>
+    <p>A working SOC dashboard you can read end-to-end in an afternoon — ingest, detect, stream, triage — with load testing and a Docker path included.</p>
+
+    <h2>What it proves</h2>
+    <p>I can design a detection model, think about event volume, and build an interface that a human under pressure can actually use.</p>
+
+    <div class="links">
+      <a href="https://watchlight.emreceyhan.xyz" target="_blank" rel="noopener">Live demo</a>
+      <a href="https://github.com/Emreceyhnn/watchlight" target="_blank" rel="noopener">Source</a>
+    </div>
+
+    <footer class="footer">
+      <p>Built by <a href="/">Emre Ceyhan</a> · <a href="/services">Work with me</a> · <a href="mailto:emreceyhnn@gmail.com">emreceyhnn@gmail.com</a></p>
+    </footer>
+  </div>
+</body>
+</html>

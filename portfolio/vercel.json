@@ -1,6 +1,14 @@
 {
   "rewrites": [
     {
+      "source": "/services",
+      "destination": "/services.html"
+    },
+    {
+      "source": "/work/:slug",
+      "destination": "/work/:slug.html"
+    },
+    {
       "source": "/((?!favicon.svg|icons.svg|og-image.png|Emre_Ceyhan_Full_Stack_Engineer.pdf).*)",
       "destination": "/index.html"
     }

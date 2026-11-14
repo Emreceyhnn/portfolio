@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DeployBox — Push-to-Deploy PaaS · Emre Ceyhan</title>
+  <meta name="description" content="A self-hosted PaaS: GitHub webhook → Redis queue → .NET worker clones, docker builds, generates Nginx vhost, streams live build logs over SSE." />
+  <link rel="canonical" href="https://emreceyhan.xyz/work/deploybox" />
+  <meta property="og:title" content="DeployBox — Push-to-Deploy PaaS, Explained" />
+  <meta property="og:description" content="git push → live URL. Redis job queue, Docker builds, Nginx vhost generation, SSE log streaming. Built by Emre Ceyhan." />
+  <meta property="og:url" content="https://emreceyhan.xyz/work/deploybox" />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="/_static.css" />
+</head>
+<body>
+  <div class="page">
+    <nav class="nav">
+      <a href="/#work">← Back to all work</a>
+    </nav>
+
+    <h1>DeployBox — push-to-deploy in a weekend, explained</h1>
+
+    <h2>Problem</h2>
+    <p>Deploying a side project shouldn't require a Kubernetes tutorial. Heroku is gone for hobby projects, and the remaining options either cost per-seat or hide the build. I wanted <code>git push</code> → live URL, with the logs visible while it happens.</p>
+
+    <h2>What I built</h2>
+    <p>A self-hosted PaaS:</p>
+    <ol style="padding-left:1.5rem;margin-bottom:1rem;">
+      <li>GitHub webhook (or OAuth repo connect) hits the Next.js API</li>
+      <li>A deployment row is created and pushed to Redis (<code>deploy:queue</code>)</li>
+      <li>A .NET worker pops the job and runs the pipeline: <code>git clone</code> → <code>docker build</code> from the repo's Dockerfile → <code>docker run</code> → generate an Nginx vhost for <code>&lt;subdomain&gt;.&lt;domain&gt;</code> → reload</li>
+      <li>Every step publishes to <code>logs:&lt;id&gt;</code>; the browser subscribes over SSE and renders the build log live</li>
+    </ol>
+
+    <h2>The decisions that mattered</h2>
+
+    <h3>Queue, not request handler</h3>
+    <p>Builds take minutes. Doing them inside the HTTP request means a dropped connection kills a deployment. Redis as both queue and pub/sub keeps the worker stateless and restartable.</p>
+
+    <h3>Logs over SSE, not WebSocket</h3>
+    <p>One-way streaming with automatic reconnect and no extra protocol to maintain — the client is an <code>EventSource</code> and a <code>&lt;pre&gt;</code>.</p>
+
+    <h3>Nginx as the routing layer</h3>
+    <p>Instead of an in-app proxy, each deployment gets a generated vhost. Routing stays fast, TLS is centralized, and the app never handles customer traffic.</p>
+
+    <h2>Result</h2>
+    <p>Push a repo, watch the build stream, get a URL. Multi-project, per-deployment logs, retry and teardown included.</p>
+
+    <h2>What it proves</h2>
+    <p>I understand the boring parts that make deploys work — process isolation, idempotent builds, log durability, reverse-proxy config — and I can build them from scratch.</p>
+
+    <div class="links">
+      <a href="https://deploybox.emreceyhan.xyz" target="_blank" rel="noopener">Live demo</a>
+      <a href="https://github.com/Emreceyhnn/Deploybox" target="_blank" rel="noopener">Source</a>
+    </div>
+
+    <footer class="footer">
+      <p>Built by <a href="/">Emre Ceyhan</a> · <a href="/services">Work with me</a> · <a href="mailto:emreceyhnn@gmail.com">emreceyhnn@gmail.com</a></p>
+    </footer>
+  </div>
+</body>
+</html>

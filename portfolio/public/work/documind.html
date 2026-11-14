@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DocuMind — RAG Document Platform · Emre Ceyhan</title>
+  <meta name="description" content="A microservice RAG platform: Auth, Document, and RAG services with pgvector, gRPC, MinIO, and a Next.js frontend. Upload PDFs, ask questions, get cited answers." />
+  <link rel="canonical" href="https://emreceyhan.xyz/work/documind" />
+  <meta property="og:title" content="DocuMind — RAG Document Platform in 4 Services" />
+  <meta property="og:description" content="Microservice document Q&A: gRPC between services, pgvector similarity search, Gemini-backed answers with source citations. Built by Emre Ceyhan." />
+  <meta property="og:url" content="https://emreceyhan.xyz/work/documind" />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="/_static.css" />
+</head>
+<body>
+  <div class="page">
+    <nav class="nav">
+      <a href="/#work">← Back to all work</a>
+    </nav>
+
+    <h1>DocuMind — RAG document platform in 4 services</h1>
+
+    <h2>Problem</h2>
+    <p>Teams sit on thousands of PDFs — contracts, specs, reports — and the only way to find an answer is to open them one by one. Generic "chat with your PDF" tools don't hold up when documents are company-scoped, permissions matter, and answers need a citation.</p>
+
+    <h2>What I built</h2>
+    <p>A microservice document platform where upload, storage, embedding and retrieval are separate concerns:</p>
+    <ul>
+      <li><code>Auth.Service</code> — registration, login, JWT issuing/refresh (ASP.NET Core)</li>
+      <li><code>Document.Service</code> — upload, metadata, S3-compatible storage via MinIO</li>
+      <li><code>RAG.service</code> — chunking, embeddings, pgvector similarity search, Gemini-backed answer generation with source citations</li>
+      <li><code>documind-client</code> — Next.js web app</li>
+      <li>Nginx in front, Docker Compose underneath</li>
+    </ul>
+
+    <h2>The decisions that mattered</h2>
+
+    <h3>Four services instead of one monolith</h3>
+    <p>Uploads are I/O-bound and bursty; embedding is CPU-bound and queue-friendly. Splitting them means the RAG service's vector store and model dependency never sit in the upload path, and each side scales independently.</p>
+
+    <h3>gRPC between Document and RAG, REST to the outside</h3>
+    <p>Internal service traffic has a stable, typed contract — binary protocol and generated clients beat JSON-over-HTTP there. Public APIs stay REST behind Nginx where debuggability matters more than throughput.</p>
+
+    <h3>pgvector instead of a dedicated vector database</h3>
+    <p>Most retrieval queries join embeddings with document metadata and company scope. Keeping both in one Postgres instance removes a database to operate and makes permission filters a plain SQL predicate instead of a two-store sync problem.</p>
+
+    <h2>Result</h2>
+    <p>A working end-to-end platform — sign up, upload, ask a question, get an answer with the exact chunk it came from. Runs from a single <code>docker compose up</code>.</p>
+
+    <h2>What it proves</h2>
+    <p>I can design service boundaries, argue a storage decision, wire a model provider in production shape, and ship the frontend that makes it usable.</p>
+
+    <div class="links">
+      <a href="https://documind.emreceyhan.xyz" target="_blank" rel="noopener">Live demo</a>
+      <a href="https://github.com/Emreceyhnn/Documind" target="_blank" rel="noopener">Source</a>
+    </div>
+
+    <footer class="footer">
+      <p>Built by <a href="/">Emre Ceyhan</a> · <a href="/services">Work with me</a> · <a href="mailto:emreceyhnn@gmail.com">emreceyhnn@gmail.com</a></p>
+    </footer>
+  </div>
+</body>
+</html>
