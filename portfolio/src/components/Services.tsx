@@ -1,6 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Check, ArrowRight, Server, Layout, ShieldAlert } from "lucide-react";
+import { profile } from "../data/profile";
+import {
+  offers,
+  processSteps,
+  quoteMailto,
+  servicesCopy,
+  type Offer,
+} from "../data/services";
 
 /**
  * "Work With Me" — the commercial section of the site.
@@ -15,101 +23,11 @@ import { Check, ArrowRight, Server, Layout, ShieldAlert } from "lucide-react";
  * every claim points at a live demo that actually resolves.
  */
 
-interface Offer {
-  id: string;
-  icon: React.ReactNode;
-  name: string;
-  promise: string;
-  bullets: string[];
-  price: string;
-  priceNote: string;
-  timeline: string;
-  proofLabel: string;
-  proofUrl: string;
-}
-
-const offers: Offer[] = [
-  {
-    id: "deploy",
-    icon: <Server size={22} />,
-    name: "Deploy & Host",
-    promise:
-      "Get an open-source tool off your laptop and onto a server you control.",
-    bullets: [
-      "Docker + Nginx + Let's Encrypt SSL, non-root containers",
-      "n8n, Plane, Cal.com, Documenso, Immich — or your own app",
-      "Nightly backups you can actually restore from",
-      "Firewall + fail2ban hardening, uptime checks",
-      "Optional monthly care plan: patching, monitoring, restore drills",
-    ],
-    price: "from $125",
-    priceNote: "≈ ₺6.300 · first month of care included, then $45/mo",
-    timeline: "2–3 days",
-    proofLabel: "See DeployBox",
-    proofUrl: "https://deploybox.emreceyhan.xyz",
-  },
-  {
-    id: "mvp",
-    icon: <Layout size={22} />,
-    name: "Multi-tenant SaaS MVP",
-    promise:
-      "A working product with real auth, real data isolation and a real deploy — not a prototype.",
-    bullets: [
-      "Next.js + PostgreSQL + Prisma, typed end to end",
-      "Auth, roles and company-scoped data isolation from day one",
-      "Audit logging, rate limiting, security headers",
-      "EN/TR i18n, CI/CD and a production deploy included",
-      "Weekly demo, fixed scope, fixed price",
-    ],
-    price: "from $1,500",
-    priceNote: "≈ ₺75.400 · 50% upfront",
-    timeline: "3–4 weeks",
-    proofLabel: "See LogiTrack",
-    proofUrl: "https://logitrackenterprise.emreceyhan.xyz/en",
-  },
-  {
-    id: "audit",
-    icon: <ShieldAlert size={22} />,
-    name: "Audit & Log Dashboard",
-    promise:
-      "Know what happened, when, and who did it — without buying a SIEM license.",
-    bullets: [
-      "Event ingestion with a sliding-window rule engine",
-      "Brute force, impossible travel, exfiltration, API abuse rules",
-      "Every alert mapped to a MITRE ATT&CK technique",
-      "Real-time alerting over SSE, no polling",
-      "Incident triage workflow with full history",
-    ],
-    price: "from $800",
-    priceNote: "≈ ₺40.200 · includes deploy + docs",
-    timeline: "1–2 weeks",
-    proofLabel: "See Watchlight",
-    proofUrl: "https://watchlight.emreceyhan.xyz",
-  },
-];
-
-const steps = [
-  {
-    n: "01",
-    title: "Call",
-    body: "20 minutes. You describe the problem, I tell you what it actually takes — including when the answer is \"don't build this\".",
-  },
-  {
-    n: "02",
-    title: "Fixed quote",
-    body: "Written scope, written price, written date. No hourly surprises. 50% to start.",
-  },
-  {
-    n: "03",
-    title: "Build",
-    body: "Weekly demo on a live URL you can open yourself. You see progress, not promises.",
-  },
-  {
-    n: "04",
-    title: "Handover",
-    body: "Repo, deploy, docs and a 14-day bug warranty. The code is yours, not rented.",
-  },
-];
+const offerIcons: Record<Offer["id"], React.ReactNode> = {
+  deploy: <Server size={22} />,
+  mvp: <Layout size={22} />,
+  audit: <ShieldAlert size={22} />,
+};
 
 export const Services: React.FC = () => {
   return (
@@ -131,7 +49,7 @@ export const Services: React.FC = () => {
             textTransform: "uppercase",
           }}
         >
-          Open for freelance &amp; contract work
+          {servicesCopy.eyebrow}
         </span>
         <h2
           style={{
@@ -140,7 +58,7 @@ export const Services: React.FC = () => {
             fontWeight: 800,
           }}
         >
-          Work With Me
+          {servicesCopy.title}
         </h2>
         <div style={{ width: "60px", height: "4px", background: "#6366f1" }} />
         <p
@@ -152,10 +70,7 @@ export const Services: React.FC = () => {
             margin: "8px 0 0",
           }}
         >
-          Three fixed-scope packages, priced up front. Every one of them is
-          backed by a live system you can click through below — the demos are
-          the portfolio, the packages are how you get the same thing built for
-          you.
+          {servicesCopy.lead}
         </p>
         <p
           style={{
@@ -165,7 +80,7 @@ export const Services: React.FC = () => {
             fontWeight: 600,
           }}
         >
-          Launch pricing for the first three clients — it goes up after that.
+          {servicesCopy.launchNote}
         </p>
         <p
           style={{
@@ -175,9 +90,7 @@ export const Services: React.FC = () => {
             lineHeight: 1.6,
           }}
         >
-          Prices are in USD and exclude VAT. Turkish clients are quoted in
-          lira at today's rate (1$ = ₺50.28) and that lira figure holds for 30
-          days — so a client in Türkiye sees roughly ₺6.300 / ₺75.400 / ₺40.200.
+          {servicesCopy.priceNote}
         </p>
       </div>
 
@@ -229,7 +142,7 @@ export const Services: React.FC = () => {
                 }}
                 aria-hidden="true"
               >
-                {offer.icon}
+                {offerIcons[offer.id]}
               </span>
               <h3 style={{ fontSize: "1.25rem", margin: 0, color: "#fff" }}>
                 {offer.name}
@@ -317,11 +230,7 @@ export const Services: React.FC = () => {
 
             <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
               <a
-                href={`mailto:emreceyhnn@gmail.com?subject=${encodeURIComponent(
-                  `Quote request — ${offer.name}`,
-                )}&body=${encodeURIComponent(
-                  `Hi Emre,\n\nI need: ${offer.name}\nWhat it's for: \nDeadline: \n\n`,
-                )}`}
+                href={quoteMailto(offer.name, profile.email)}
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -368,7 +277,7 @@ export const Services: React.FC = () => {
           gap: "24px",
         }}
       >
-        {steps.map((step) => (
+        {processSteps.map((step) => (
           <div key={step.n}>
             <span
               style={{
@@ -410,14 +319,23 @@ export const Services: React.FC = () => {
           fontSize: "0.85rem",
         }}
       >
-        Fiyatlar KDV hariçtir. Ödeme yarısı peşin, yarısı teslimde —{" "}
+        {servicesCopy.trFooterBefore}
         <a
-          href="mailto:emreceyhnn@gmail.com"
+          href={`mailto:${profile.email}`}
           style={{ color: "#818cf8", textDecoration: "underline", textUnderlineOffset: "3px" }}
         >
-          yaz, konuşalım
+          {servicesCopy.trFooterLink}
         </a>
-        .
+        {servicesCopy.trFooterAfter}
+      </p>
+
+      <p style={{ marginTop: "16px", fontSize: "0.9rem" }}>
+        <a
+          href="/services"
+          style={{ color: "#818cf8", textDecoration: "underline", textUnderlineOffset: "3px" }}
+        >
+          {servicesCopy.detailsLinkLabel}
+        </a>
       </p>
     </section>
   );

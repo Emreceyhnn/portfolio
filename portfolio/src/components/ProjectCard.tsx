@@ -3,7 +3,7 @@ import type { ProjectCardProps } from '../lib/type/example'
 import { ExternalLink, Globe } from 'lucide-react'
 import { motion } from 'framer-motion'
 
-export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) => {
+export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   return (
     <motion.div 
       initial={{ opacity: 0, scale: 0.98 }}
@@ -18,7 +18,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
         // scroll. clamp() keeps desktop unchanged (still bottoms out at
         // 400px) while letting mobile cards shrink toward the aspect
         // ratio's natural height instead of being forced past it.
-        minHeight: 'clamp(220px, 62vw, 400px)',
+        minHeight: 'clamp(340px, 88vw, 460px)',
         background: '#1a1a1a',
         borderRadius: '24px',
         border: '1px solid rgba(255, 255, 255, 0.08)',
@@ -71,8 +71,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
         </div>
 
           <div style={{ display: 'flex', gap: '4px' }}>
-            <button
-              onClick={() => onSelect(project.id)}
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Open ${project.title} in a new tab`}
               style={{
                 background: 'transparent',
                 border: 'none',
@@ -84,7 +87,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
               title="Open in New Tab"
             >
               <ExternalLink size={16} />
-            </button>
+            </a>
           </div>
       </div>
 
@@ -106,21 +109,55 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
           boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
         }}>
           <h3 style={{ margin: 0, fontSize: '1.1rem', color: '#fff', fontWeight: 700 }}>{project.title}</h3>
+          <p style={{
+            margin: '8px 0 0',
+            fontSize: '0.78rem',
+            lineHeight: 1.5,
+            color: 'rgba(255,255,255,0.65)',
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden'
+          }}>
+            {project.description}
+          </p>
           <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '8px' }}>
             {project.tech.slice(0, 3).map(t => (
               <span key={t} style={{ fontSize: '0.6rem', color: '#818cf8', opacity: 0.8 }}>#{t}</span>
             ))}
           </div>
+          {project.caseStudy && (
+            <a
+              href={project.caseStudy}
+              style={{
+                display: 'inline-block',
+                marginTop: '10px',
+                fontSize: '0.78rem',
+                fontWeight: 600,
+                color: '#818cf8',
+                textDecoration: 'underline',
+                textUnderlineOffset: '3px',
+                pointerEvents: 'auto'
+              }}
+            >
+              Read the case study
+            </a>
+          )}
         </div>
       </div>
 
       {/* Static Preview (live iframes get blocked by target-site CSP frame-ancestors) */}
-      <div
-        onClick={() => onSelect(project.id)}
+      <a
+        href={project.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Visit ${project.title} live site`}
         style={{
           flex: 1,
           position: 'relative',
           cursor: 'pointer',
+          textDecoration: 'none',
+          paddingBottom: 'clamp(150px, 42vw, 180px)',
           background:
             'radial-gradient(circle at 30% 20%, rgba(99,102,241,0.25), transparent 60%), linear-gradient(160deg, #14141c 0%, #0a0a0d 100%)',
           display: 'flex',
@@ -140,7 +177,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
             Visit Live Site
           </span>
         </div>
-      </div>
+      </a>
     </motion.div>
   )
 }

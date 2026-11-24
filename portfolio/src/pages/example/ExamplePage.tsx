@@ -4,6 +4,7 @@ import type {
   ExamplePageActions,
 } from "../../lib/type/example";
 import { fetchPortfolioData } from "../../services/dataService";
+import { profile, contactMailto } from "../../data/profile";
 import { ProjectGrid } from "../../components/BentoGrid";
 import { CursorFollower } from "../../components/CursorFollower";
 import { ErrorBoundary } from "../../components/ErrorBoundary";
@@ -195,11 +196,7 @@ export const ExamplePage: React.FC = () => {
             lineHeight: 1.8,
           }}
         >
-          Results-driven Full-Stack Engineer with startup production
-          experience shipping highly secure, multi-tenant SaaS architectures
-          end to end. Specialized in Next.js, React 19, TypeScript, and
-          PostgreSQL — focused on measurable outcomes like lower API latency
-          and Lighthouse scores of 90+.
+          {profile.summary}
         </motion.p>
 
         <motion.div
@@ -209,7 +206,7 @@ export const ExamplePage: React.FC = () => {
           style={{ marginTop: "40px", display: "flex", justifyContent: "center" }}
         >
           <a
-            href="/Emre_Ceyhan_Full_Stack_Engineer.pdf"
+            href={profile.resumeUrl}
             download="Emre_Ceyhan_CV.pdf"
             style={{
               display: "flex",
@@ -263,7 +260,7 @@ export const ExamplePage: React.FC = () => {
               padding: "8px 4px",
             }}
           >
-            <MapPin size={16} /> Bursa, TR (Open to Remote)
+            <MapPin size={16} /> {profile.locationLabel}
           </div>
           {/*
             Contact links: the <a> itself now owns the flex layout and
@@ -274,7 +271,7 @@ export const ExamplePage: React.FC = () => {
             with no padding was well under that on a phone.
           */}
           <a
-            href="mailto:emreceyhnn@gmail.com?subject=Contact%20from%20Portfolio"
+            href={contactMailto}
             style={{
               display: "flex",
               alignItems: "center",
@@ -285,10 +282,10 @@ export const ExamplePage: React.FC = () => {
               minHeight: "44px",
             }}
           >
-            <Mail size={16} /> emreceyhnn@gmail.com
+            <Mail size={16} /> {profile.email}
           </a>
           <a
-            href="https://github.com/Emreceyhnn"
+            href={profile.github.url}
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -301,10 +298,10 @@ export const ExamplePage: React.FC = () => {
               minHeight: "44px",
             }}
           >
-            <Github size={16} /> github.com/Emreceyhnn
+            <Github size={16} /> {profile.github.label}
           </a>
           <a
-            href="https://www.linkedin.com/in/emreceyhn/"
+            href={profile.linkedin.url}
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -317,7 +314,7 @@ export const ExamplePage: React.FC = () => {
               minHeight: "44px",
             }}
           >
-            <Linkedin size={16} /> linkedin.com/in/emreceyhn/
+            <Linkedin size={16} /> {profile.linkedin.label}
           </a>
         </motion.div>
 
@@ -694,8 +691,7 @@ export const ExamplePage: React.FC = () => {
               margin: 0,
             }}
           >
-            Have a role, a project, or just a question? This form actually
-            sends — it'll land in my inbox, not a void.
+            {profile.contactIntro}
           </p>
         </div>
         <ContactForm />

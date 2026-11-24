@@ -28,6 +28,7 @@ export const fetchPortfolioData = async (): Promise<PortfolioData> => {
       description:
         "A real-time Mini-SIEM / SOC dashboard with 7 sliding-window detection rules (brute force, credential stuffing, impossible travel, port scans, data exfiltration, unauthorized exec, API abuse), each mapped to a MITRE ATT&CK technique ID, streaming alerts live to analysts over Server-Sent Events.",
       link: "https://watchlight.emreceyhan.xyz/",
+      caseStudy: "/work/watchlight",
       tech: ["Next.js", "TypeScript", "Redis Pub/Sub", "PostgreSQL", "Prisma", "Docker"],
     },
     {
@@ -44,6 +45,7 @@ export const fetchPortfolioData = async (): Promise<PortfolioData> => {
       description:
         "A 4-service Retrieval-Augmented Generation platform (Auth, Document, RAG, Next.js client) on ASP.NET Core with gRPC inter-service communication, JWT-based auth, document chunking/embedding, and vector similarity search via PostgreSQL/pgvector and MinIO.",
       link: "https://documind.emreceyhan.xyz/",
+      caseStudy: "/work/documind",
       tech: ["ASP.NET Core", ".NET 10", "gRPC", "pgvector", "MinIO", "Next.js"],
     },
     {
@@ -52,6 +54,7 @@ export const fetchPortfolioData = async (): Promise<PortfolioData> => {
       description:
         "A self-hosted mini-PaaS: GitHub repo connect & OAuth, webhook-triggered Docker builds, live build-log streaming to a subdomain deploy, built with Next.js + tRPC and a .NET Worker Service driving the Docker Engine API.",
       link: "https://deploybox.emreceyhan.xyz/",
+      caseStudy: "/work/deploybox",
       tech: ["Next.js", "tRPC", "Drizzle ORM", ".NET", "Docker"],
     },
     {

@@ -3,6 +3,8 @@ export interface ProjectModel {
   title: string;
   description: string;
   link: string;
+  /** Same-site case study page (static HTML), when one exists. */
+  caseStudy?: string;
   tech: string[];
 }
 
@@ -51,5 +53,6 @@ export interface ExamplePageProps {
 
 export interface ProjectCardProps {
   project: ProjectModel;
-  onSelect: (id: string) => void;
+  /** Deprecated: cards now use real links. Kept so callers keep compiling. */
+  onSelect?: (id: string) => void;
 }
