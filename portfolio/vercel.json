@@ -9,7 +9,7 @@
       "destination": "/work/:slug.html"
     },
     {
-      "source": "/((?!favicon.svg|icons.svg|og-image.png|Emre_Ceyhan_Full_Stack_Engineer.pdf).*)",
+      "source": "/((?!favicon.svg|llms.txt|llms-full.txt|robots.txt|sitemap.xml|icons.svg|og-image.png|Emre_Ceyhan_Full_Stack_Engineer.pdf).*)",
       "destination": "/index.html"
     }
   ]

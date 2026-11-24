@@ -1,9 +1,14 @@
-import React, { useState, useEffect, useCallback, Suspense, lazy } from "react";
+import React, { useState, useCallback, useSyncExternalStore, Suspense, lazy } from "react";
+
+const subscribeNoop = () => () => {};
 import type {
   ExamplePageState,
   ExamplePageActions,
 } from "../../lib/type/example";
-import { fetchPortfolioData } from "../../services/dataService";
+import {
+  fetchPortfolioData,
+  getPortfolioData,
+} from "../../services/dataService";
 import { ProjectGrid } from "../../components/BentoGrid";
 import { CursorFollower } from "../../components/CursorFollower";
 import { ErrorBoundary } from "../../components/ErrorBoundary";
@@ -25,16 +30,22 @@ const ShaderHero = lazy(() =>
 
 export const ExamplePage: React.FC = () => {
   // CRITICAL: Single Root State (PageState)
-  const [state, setState] = useState<ExamplePageState>({
-    projects: [],
-    experience: [],
-    skills: [],
-    education: [],
-    languages: [],
-    isLoading: true,
+  // Seeded synchronously from the static data so the server-rendered HTML
+  // already contains every section (no "Initializing systems..." state for
+  // crawlers) and the client hydrates to the exact same markup.
+  const [state, setState] = useState<ExamplePageState>(() => ({
+    ...getPortfolioData(),
+    isLoading: false,
     error: null,
     lastFetched: null,
-  });
+  }));
+
+  // WebGL hero is client-only: render it after mount so SSR/hydration match.
+  const mounted = useSyncExternalStore(
+    subscribeNoop,
+    () => true,
+    () => false,
+  );
 
   // CRITICAL: PageActions (Memoized)
   const actions: ExamplePageActions = {
@@ -82,11 +93,6 @@ export const ExamplePage: React.FC = () => {
     }, []),
   };
 
-  useEffect(() => {
-    actions.fetchProjects();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [actions.fetchProjects]);
-
   const { scrollY } = useScroll();
   // Fade/scale the hero out over a short, fixed scroll distance (the first
   // ~400px) instead of a fraction of total page scroll. Using total-page
@@ -124,9 +130,11 @@ export const ExamplePage: React.FC = () => {
           />
         }
       >
-        <Suspense fallback={null}>
-          <ShaderHero />
-        </Suspense>
+        {mounted && (
+          <Suspense fallback={null}>
+            <ShaderHero />
+          </Suspense>
+        )}
       </ErrorBoundary>
 
       <motion.section

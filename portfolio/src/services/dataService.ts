@@ -13,14 +13,12 @@ export interface PortfolioData {
   languages: { language: string; proficiency: string }[];
 }
 
-export const fetchPortfolioData = async (): Promise<PortfolioData> => {
-  // FE-10 perf fix: this used to `await` an artificial 800ms delay to
-  // "simulate an API call" -- but the data below is fully static/local,
-  // not a real network request, so the delay bought nothing except a
-  // guaranteed 800ms added straight onto the page's LCP (the hero
-  // paragraph doesn't render until this promise resolves). Kept as an
-  // async function so the call site's loading/error states are exercised
-  // unchanged; just no longer paying for a fake wait.
+/**
+ * Synchronous accessor. The data is static, so the page can be rendered
+ * on the server (prerender) and hydrated on the client with identical
+ * content -- crawlers get the full text in the initial HTML response.
+ */
+export const getPortfolioData = (): PortfolioData => {
   const mockProjects: ProjectModel[] = [
     {
       id: "1",
@@ -207,3 +205,7 @@ export const fetchPortfolioData = async (): Promise<PortfolioData> => {
     languages: mockLanguages,
   };
 };
+
+// Kept async for call sites that still use the promise-based API.
+export const fetchPortfolioData = async (): Promise<PortfolioData> =>
+  getPortfolioData();

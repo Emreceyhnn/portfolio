@@ -1,0 +1,16 @@
+# Emre Ceyhan — Full-Stack Engineer
+
+> Full-Stack Engineer (Next.js, React 19, TypeScript, PostgreSQL) based in Bursa, Turkey; open to remote work. Builds secure, multi-tenant SaaS platforms end to end.
+
+## Pages
+- [Home / portfolio](https://emreceyhan.xyz/): experience, skills, selected works, contact
+- [Services & pricing](https://emreceyhan.xyz/services): fixed-scope, fixed-price offers
+- [Watchlight case study](https://emreceyhan.xyz/work/watchlight): real-time Mini-SIEM / SOC dashboard
+- [DocuMind case study](https://emreceyhan.xyz/work/documind): microservices RAG platform
+- [DeployBox case study](https://emreceyhan.xyz/work/deploybox): push-to-deploy mini-PaaS
+
+## Optional
+- [Full portfolio as plain Markdown](https://emreceyhan.xyz/llms-full.txt)
+- [Résumé (PDF)](https://emreceyhan.xyz/Emre_Ceyhan_Full_Stack_Engineer.pdf)
+- [GitHub](https://github.com/Emreceyhnn)
+- [LinkedIn](https://www.linkedin.com/in/emreceyhn/)
